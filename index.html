@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Punch Email Signature Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
@@ -109,6 +110,8 @@ function waitForImage(img) {
 }
 
 async function generate() {
+  // ensure Montserrat is loaded before drawing
+  await document.fonts.ready;
   const name  = document.getElementById('name').value.trim();
   const title = document.getElementById('title').value.trim();
   const email = document.getElementById('email').value.trim();
@@ -118,10 +121,10 @@ async function generate() {
   const logoImg = currentStyle === 'wordmark' ? wmImg : fistImg;
   await waitForImage(logoImg);
 
-  const DPR    = 4; // render at 2x for sharpness
+  const DPR    = 2; // render at 2x for sharpness
   const PAD    = 16;
   const GAP    = 14;
-  const FONT   = 'Arial';
+  const FONT   = 'Montserrat, Arial';
   const NAME_SIZE = 12;
   const TEXT_SIZE = 11;
   const LINE_H    = 17;
@@ -140,7 +143,7 @@ async function generate() {
 
   const textBlockH = lines.length * LINE_H - (LINE_H - TEXT_SIZE);
   const totalH     = Math.max(logoH, textBlockH) + PAD * 2;
-  const totalW     = PAD + logoW + GAP + 200 + PAD;
+  const totalW     = PAD + logoW + GAP + 180 + PAD;
 
   const canvas = document.getElementById('sig-canvas');
   canvas.width  = totalW * DPR;
@@ -165,7 +168,7 @@ async function generate() {
 
   let y = textBlockTop;
   for (const line of lines) {
-    ctx.font = (line.bold ? 'bold ' : '') + line.size + 'px ' + FONT;
+    ctx.font = (line.bold ? '800 ' : '600 ') + line.size + 'px ' + FONT;
     ctx.fillStyle = '#111111';
     ctx.fillText(line.text, textX, y + line.size);
     y += LINE_H;

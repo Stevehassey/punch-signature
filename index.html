@@ -110,8 +110,11 @@ function waitForImage(img) {
 }
 
 async function generate() {
-  // ensure Montserrat is loaded before drawing
-  await document.fonts.ready;
+  // explicitly load both weights before drawing
+  await Promise.all([
+    document.fonts.load('400 12px Montserrat'),
+    document.fonts.load('800 12px Montserrat'),
+  ]);
   const name  = document.getElementById('name').value.trim();
   const title = document.getElementById('title').value.trim();
   const email = document.getElementById('email').value.trim();

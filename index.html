@@ -81,7 +81,7 @@
       <li>Scroll to the <strong>Signature</strong> section and click <strong>Create new</strong>.</li>
       <li>In the signature editor, click the <strong>Insert image</strong> icon (mountain/sun icon in the toolbar).</li>
       <li>Choose <strong>Upload</strong> and select the PNG you just downloaded.</li>
-      <li>Click the inserted image, then click <strong>Original size</strong> in the size options that appear below it.</li>
+      <li>Click the inserted image, then click <strong>Large</strong> in the size options that appear below it.</li>
       <li>Scroll down to <strong>Signature defaults</strong> and set both <strong>For new emails use</strong> and <strong>On reply/forward use</strong> to <strong>Punch Signature</strong>.</li>
       <li>Scroll down and click <strong>Save Changes</strong>.</li>
     </ol>
@@ -124,7 +124,7 @@ async function generate() {
   const logoImg = currentStyle === 'wordmark' ? wmImg : fistImg;
   await waitForImage(logoImg);
 
-  const DPR    = 1;
+  const DPR    = 2;
   const PAD    = 16;
   const GAP    = 14;
   const FONT   = 'Montserrat, Arial';
@@ -146,7 +146,7 @@ async function generate() {
 
   const textBlockH = lines.length * LINE_H - (LINE_H - TEXT_SIZE);
   const totalH     = Math.max(logoH, textBlockH) + PAD * 2;
-  const totalW     = 400;
+  const totalW     = 240;
 
   const canvas = document.getElementById('sig-canvas');
   canvas.width  = totalW * DPR;

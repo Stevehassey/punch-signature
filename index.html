@@ -168,7 +168,7 @@ async function generate() {
 
   let y = textBlockTop;
   for (const line of lines) {
-    ctx.font = (line.bold ? '800 ' : '600 ') + line.size + 'px ' + FONT;
+    ctx.font = (line.bold ? '800 ' : '400 ') + line.size + 'px ' + FONT;
     ctx.fillStyle = '#111111';
     ctx.fillText(line.text, textX, y + line.size);
     y += LINE_H;

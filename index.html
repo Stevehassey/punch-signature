@@ -78,7 +78,7 @@
       <li>Scroll to the <strong>Signature</strong> section and click <strong>Create new</strong>. Name it <strong>Punch Signature</strong>.</li>
       <li>In the signature editor, click the <strong>Insert image</strong> icon (mountain/sun icon in the toolbar).</li>
       <li>Choose <strong>Upload</strong> and select the signature file you just downloaded.</li>
-      <li>Click the inserted image, then click <strong>Large</strong> in the size options that appear below it.</li>
+      <li>Click the inserted image, then click <strong>Original size</strong> in the size options that appear below it.</li>
       <li>Scroll down to <strong>Signature defaults</strong> and set both <strong>For new emails use</strong> and <strong>On reply/forward use</strong> to <strong>Punch Signature</strong>.</li>
       <li>Scroll down and click <strong>Save Changes</strong>.</li>
     </ol>
@@ -135,12 +135,12 @@ function escXML(s) {
 }
 
 function buildSVG(name, title, email, phone, style) {
-  const PAD       = 24;
-  const GAP       = 20;
-  const NAME_SIZE = 16;
-  const TEXT_SIZE = 14;
-  const LINE_H    = 22;
-  const logoH     = style === 'wordmark' ? 44 : 72;
+  const PAD       = 17;
+  const GAP       = 14;
+  const NAME_SIZE = 11;
+  const TEXT_SIZE = 10;
+  const LINE_H    = 15;
+  const logoH     = style === 'wordmark' ? 31 : 50;
   const logoAR    = style === 'wordmark' ? (900/248) : (900/857);
   const logoW     = Math.round(logoAR * logoH);
   const logoSrc   = style === 'wordmark'
@@ -154,7 +154,7 @@ function buildSVG(name, title, email, phone, style) {
 
   const textBlockH = lines.length * LINE_H;
   const contentH   = Math.max(logoH, textBlockH);
-  const W          = 480;
+  const W          = 336;
   const H          = contentH + PAD * 2;
   const logoY      = PAD + (contentH - logoH) / 2;
   const textX      = PAD + logoW + GAP;

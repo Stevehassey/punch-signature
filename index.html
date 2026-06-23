@@ -208,15 +208,28 @@ async function generate() {
 
 function downloadSVG() {
   if (!currentSVG) return;
+  const DPR = 3;
   const blob = new Blob([currentSVG], { type: 'image/svg+xml' });
   const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href = url; a.download = 'punch-signature.svg'; a.click();
-  URL.revokeObjectURL(url);
-  const btn = document.getElementById('dl-btn');
-  btn.textContent = '✓ Downloaded!';
-  btn.classList.add('success');
-  setTimeout(() => { btn.textContent = 'Download Signature'; btn.classList.remove('success'); }, 3000);
+  const img  = new Image();
+  img.onload = function() {
+    const canvas = document.createElement('canvas');
+    canvas.width  = img.naturalWidth  * DPR;
+    canvas.height = img.naturalHeight * DPR;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(DPR, DPR);
+    ctx.drawImage(img, 0, 0);
+    URL.revokeObjectURL(url);
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png');
+    a.download = 'punch-signature.png';
+    a.click();
+    const btn = document.getElementById('dl-btn');
+    btn.textContent = '✓ Downloaded!';
+    btn.classList.add('success');
+    setTimeout(() => { btn.textContent = 'Download Signature'; btn.classList.remove('success'); }, 3000);
+  };
+  img.src = url;
 }
 </script>
 </body>

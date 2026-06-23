@@ -125,15 +125,15 @@ async function generate() {
   await waitForImage(logoImg);
 
   const DPR    = 2;
-  const PAD    = 16;
-  const GAP    = 14;
+  const PAD    = 20;
+  const GAP    = 18;
   const FONT   = 'Montserrat, Arial';
-  const NAME_SIZE = 12;
-  const TEXT_SIZE = 11;
-  const LINE_H    = 17;
+  const NAME_SIZE = 14;
+  const TEXT_SIZE = 13;
+  const LINE_H    = 20;
 
   // measure logo display size
-  const logoH  = currentStyle === 'wordmark' ? 30 : 54;
+  const logoH  = currentStyle === 'wordmark' ? 38 : 68;
   const logoW  = Math.round(logoImg.naturalWidth * (logoH / logoImg.naturalHeight));
 
   // measure text block height
@@ -146,7 +146,7 @@ async function generate() {
 
   const textBlockH = lines.length * LINE_H - (LINE_H - TEXT_SIZE);
   const totalH     = Math.max(logoH, textBlockH) + PAD * 2;
-  const totalW     = 340;
+  const totalW     = 480;
 
   const canvas = document.getElementById('sig-canvas');
   canvas.width  = totalW * DPR;

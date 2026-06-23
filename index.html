@@ -208,7 +208,7 @@ async function generate() {
 
 function downloadSVG() {
   if (!currentSVG) return;
-  const DPR = 4;
+  const DPR = 2;
   const blob = new Blob([currentSVG], { type: 'image/svg+xml' });
   const url  = URL.createObjectURL(blob);
   const img  = new Image();

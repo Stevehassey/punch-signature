@@ -124,7 +124,7 @@ async function generate() {
   const logoImg = currentStyle === 'wordmark' ? wmImg : fistImg;
   await waitForImage(logoImg);
 
-  const DPR    = 2;
+  const DPR    = 3;
   const PAD    = 20;
   const GAP    = 18;
   const FONT   = 'Montserrat, Arial';
@@ -146,7 +146,7 @@ async function generate() {
 
   const textBlockH = lines.length * LINE_H - (LINE_H - TEXT_SIZE);
   const totalH     = Math.max(logoH, textBlockH) + PAD * 2;
-  const totalW     = 595;
+  const totalW     = 566;
 
   const canvas = document.getElementById('sig-canvas');
   canvas.width  = totalW * DPR;

@@ -135,12 +135,12 @@ function escXML(s) {
 }
 
 function buildSVG(name, title, email, phone, style) {
-  const PAD       = 17;
-  const GAP       = 14;
-  const NAME_SIZE = 11;
-  const TEXT_SIZE = 10;
-  const LINE_H    = 15;
-  const logoH     = style === 'wordmark' ? 31 : 50;
+  const PAD       = 9;
+  const GAP       = 7;
+  const NAME_SIZE = 6;
+  const TEXT_SIZE = 5;
+  const LINE_H    = 8;
+  const logoH     = style === 'wordmark' ? 16 : 25;
   const logoAR    = style === 'wordmark' ? (900/248) : (900/857);
   const logoW     = Math.round(logoAR * logoH);
   const logoSrc   = style === 'wordmark'
@@ -154,7 +154,7 @@ function buildSVG(name, title, email, phone, style) {
 
   const textBlockH = lines.length * LINE_H;
   const contentH   = Math.max(logoH, textBlockH);
-  const W          = 336;
+  const W          = 168;
   const H          = contentH + PAD * 2;
   const logoY      = PAD + (contentH - logoH) / 2;
   const textX      = PAD + logoW + GAP;
@@ -208,7 +208,7 @@ async function generate() {
 
 function downloadSVG() {
   if (!currentSVG) return;
-  const DPR = 1;
+  const DPR = 2;
   const blob = new Blob([currentSVG], { type: 'image/svg+xml' });
   const url  = URL.createObjectURL(blob);
   const img  = new Image();

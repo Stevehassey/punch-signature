@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Punch Email Signature Generator (HTML)</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
+  h1 { font-size: 28px; font-weight: 700; color: #111; margin-bottom: 6px; }
+  .subtitle { color: #666; font-size: 15px; margin-bottom: 36px; }
+  .card { background: #fff; border-radius: 12px; padding: 36px; width: 100%; max-width: 560px; box-shadow: 0 2px 16px rgba(0,0,0,.08); }
+  label { display: block; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 6px; margin-top: 18px; }
+  label:first-of-type { margin-top: 0; }
+  input { width: 100%; padding: 10px 14px; border: 1.5px solid #ddd; border-radius: 8px; font-size: 15px; outline: none; transition: border-color .15s; }
+  input:focus { border-color: #E63B2E; }
+  .style-group { display: flex; gap: 12px; margin-top: 8px; }
+  .style-opt { flex: 1; border: 2px solid #ddd; border-radius: 8px; padding: 10px; cursor: pointer; text-align: center; font-size: 13px; font-weight: 600; color: #555; transition: border-color .15s, background .15s; }
+  .style-opt.active { border-color: #E63B2E; background: #fff5f5; color: #E63B2E; }
+  .style-opt img { display: block; margin: 0 auto 6px; max-height: 36px; width: auto; }
+  .gen-btn { margin-top: 24px; width: 100%; padding: 13px; background: #E63B2E; color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; transition: background .15s; }
+  .gen-btn:hover { background: #c42f23; }
+  .preview-section { margin-top: 40px; width: 100%; max-width: 560px; display: none; }
+  .preview-section h2 { font-size: 18px; font-weight: 700; color: #111; margin-bottom: 12px; }
+  .preview-box { background: #fff; border: 1.5px solid #eee; border-radius: 10px; padding: 28px; }
+  .copy-btn { margin-top: 16px; width: 100%; padding: 13px; background: #111; color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background .15s; }
+  .copy-btn:hover { background: #333; }
+  .copy-btn.success { background: #2e7d32; }
+  .instructions { margin-top: 28px; background: #fff; border-radius: 10px; padding: 24px; border: 1.5px solid #eee; }
+  .instructions h3 { font-size: 15px; font-weight: 700; margin-bottom: 10px; color: #111; }
+  .instructions ol { padding-left: 20px; color: #555; font-size: 14px; line-height: 1.7; }
+  .instructions a { color: #E63B2E; }
+</style>
+</head>
+<body>
+
+<h1>Punch Signature Generator</h1>
+<p class="subtitle">Fill in your details to create your email signature.</p>
+
+<div class="card">
+  <label for="name">Full Name</label>
+  <input type="text" id="name" placeholder="Jane Doe" />
+
+  <label for="title">Title</label>
+  <input type="text" id="title" placeholder="Buyer" />
+
+  <label for="email">Email Address</label>
+  <input type="email" id="email" placeholder="jane@punch.company" />
+
+  <label for="phone">Phone Number</label>
+  <input type="tel" id="phone" placeholder="(123) 456-7890" />
+
+  <label>Signature Style</label>
+  <div class="style-group">
+    <div class="style-opt active" id="opt-wordmark" onclick="selectStyle('wordmark')">
+      <img src="https://stevehassey.github.io/punch-signature/wordmark.png" style="max-height:28px">
+      Wordmark
+    </div>
+    <div class="style-opt" id="opt-fist" onclick="selectStyle('fist')">
+      <img src="https://stevehassey.github.io/punch-signature/fist.png" style="max-height:36px">
+      Fist Logo
+    </div>
+  </div>
+
+  <button class="gen-btn" onclick="generate()">Generate Signature</button>
+</div>
+
+<div class="preview-section" id="preview-section">
+  <h2>Your Signature</h2>
+  <div class="preview-box" id="preview-box"></div>
+  <button class="copy-btn" id="copy-btn" onclick="copySignature()">Copy Signature</button>
+  <div class="instructions">
+    <h3>How to install in Gmail</h3>
+    <ol>
+      <li>Click <strong>Copy Signature</strong> above.</li>
+      <li>Open <a href="https://mail.google.com" target="_blank">Gmail</a> &rarr; Settings (gear icon) &rarr; <strong>See all settings</strong>.</li>
+      <li>Scroll to the <strong>Signature</strong> section and click <strong>Create new</strong>. Name it <strong>Punch Signature</strong>.</li>
+      <li>Click inside the signature text box and paste (<strong>⌘V</strong> on Mac, <strong>Ctrl+V</strong> on Windows).</li>
+      <li>Scroll down to <strong>Signature defaults</strong> and set both <strong>For new emails use</strong> and <strong>On reply/forward use</strong> to <strong>Punch Signature</strong>.</li>
+      <li>Scroll down and click <strong>Save Changes</strong>.</li>
+    </ol>
+  </div>
+</div>
+
+<script>
+const BASE = 'https://stevehassey.github.io/punch-signature';
+let currentStyle = 'wordmark';
+let currentHTML  = '';
+
+function selectStyle(s) {
+  currentStyle = s;
+  document.getElementById('opt-wordmark').classList.toggle('active', s === 'wordmark');
+  document.getElementById('opt-fist').classList.toggle('active', s === 'fist');
+}
+
+function buildSignatureHTML(name, title, email, phone, style) {
+  const logoSrc    = style === 'wordmark' ? BASE + '/wordmark.png' : BASE + '/fist.png';
+  const logoWidth  = style === 'wordmark' ? '120' : '44';
+  const logoHeight = style === 'wordmark' ? '33'  : '42';
+
+  const titleRow = title ? `<tr><td style="padding:1px 0;font-family:Arial,sans-serif;font-size:13px;font-weight:400;color:#111111;">${title}</td></tr>` : '';
+  const emailRow = email ? `<tr><td style="padding:1px 0;font-family:Arial,sans-serif;font-size:13px;font-weight:400;color:#111111;"><a href="mailto:${email}" style="color:#111111;text-decoration:none;">${email}</a></td></tr>` : '';
+  const phoneRow = phone ? `<tr><td style="padding:1px 0;font-family:Arial,sans-serif;font-size:13px;font-weight:400;color:#111111;">${phone}</td></tr>` : '';
+
+  return `<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,sans-serif;">
+  <tr>
+    <td style="padding-right:16px;vertical-align:middle;">
+      <img src="${logoSrc}" width="${logoWidth}" height="${logoHeight}" alt="Punch" style="display:block;" />
+    </td>
+    <td style="vertical-align:middle;">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr><td style="padding:1px 0;font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:#111111;letter-spacing:0.04em;text-transform:uppercase;">${name}</td></tr>
+        ${titleRow}${emailRow}${phoneRow}
+      </table>
+    </td>
+  </tr>
+</table>`;
+}
+
+function generate() {
+  const name  = document.getElementById('name').value.trim();
+  const title = document.getElementById('title').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  if (!name) { alert('Please enter your name.'); return; }
+
+  currentHTML = buildSignatureHTML(name, title, email, phone, currentStyle);
+
+  const box = document.getElementById('preview-box');
+  box.innerHTML = currentHTML;
+
+  const sec = document.getElementById('preview-section');
+  sec.style.display = 'block';
+  sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  const btn = document.getElementById('copy-btn');
+  btn.textContent = 'Copy Signature';
+  btn.classList.remove('success');
+}
+
+async function copySignature() {
+  if (!currentHTML) return;
+  try {
+    const blob = new Blob([currentHTML], { type: 'text/html' });
+    await navigator.clipboard.write([new ClipboardItem({ 'text/html': blob })]);
+  } catch(e) {
+    // fallback: select rendered node
+    const range = document.createRange();
+    range.selectNode(document.getElementById('preview-box'));
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
+  }
+  const btn = document.getElementById('copy-btn');
+  btn.textContent = '✓ Copied!';
+  btn.classList.add('success');
+  setTimeout(() => { btn.textContent = 'Copy Signature'; btn.classList.remove('success'); }, 3000);
+}
+</script>
+</body>
+</html>

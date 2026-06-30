@@ -99,18 +99,18 @@ function buildSignatureHTML(name, title, email, phone, style) {
   const logoWidth  = style === 'wordmark' ? '120' : '44';
   const logoHeight = style === 'wordmark' ? '33'  : '42';
 
-  const titleRow = title ? `<tr><td style="padding:0;font-family:'Montserrat',Arial,sans-serif;font-size:13px;font-weight:400;color:#111111;">${title}</td></tr>` : '';
-  const emailRow = email ? `<tr><td style="padding:0;font-family:'Montserrat',Arial,sans-serif;font-size:13px;font-weight:400;color:#111111;"><a href="mailto:${email}" style="color:#111111;text-decoration:none;">${email}</a></td></tr>` : '';
-  const phoneRow = phone ? `<tr><td style="padding:0;font-family:'Montserrat',Arial,sans-serif;font-size:13px;font-weight:400;color:#111111;">${phone}</td></tr>` : '';
+  const titleRow = title ? `<tr><td style="padding:0;font-family:Arial,sans-serif;font-size:13px;font-weight:400;color:#111111;">${title}</td></tr>` : '';
+  const emailRow = email ? `<tr><td style="padding:0;font-family:Arial,sans-serif;font-size:13px;font-weight:400;color:#111111;"><a href="mailto:${email}" style="color:#111111;text-decoration:none;">${email}</a></td></tr>` : '';
+  const phoneRow = phone ? `<tr><td style="padding:0;font-family:Arial,sans-serif;font-size:13px;font-weight:400;color:#111111;">${phone}</td></tr>` : '';
 
-  return `<table cellpadding="0" cellspacing="0" border="0" style="font-family:'Montserrat',Arial,sans-serif;">
+  return `<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,sans-serif;">
   <tr>
     <td style="padding-right:16px;vertical-align:middle;">
       <img src="${logoSrc}" width="${logoWidth}" height="${logoHeight}" alt="Punch" style="display:block;" />
     </td>
     <td style="vertical-align:middle;">
       <table cellpadding="0" cellspacing="0" border="0">
-        <tr><td style="padding:0;font-family:'Montserrat',Arial,sans-serif;font-size:13px;font-weight:700;color:#111111;letter-spacing:0.04em;text-transform:uppercase;">${name}</td></tr>
+        <tr><td style="padding:0;font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:#111111;letter-spacing:0.04em;text-transform:uppercase;">${name}</td></tr>
         ${titleRow}${emailRow}${phoneRow}
       </table>
     </td>

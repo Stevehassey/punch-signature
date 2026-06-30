@@ -99,9 +99,9 @@ function buildSignatureHTML(name, title, email, phone, style) {
   const logoWidth  = style === 'wordmark' ? '120' : '44';
   const logoHeight = style === 'wordmark' ? '33'  : '42';
 
-  const titleRow = title ? `<tr><td style="padding:0;"><font face="Arial" size="2" color="#111111">${title}</font></td></tr>` : '';
-  const emailRow = email ? `<tr><td style="padding:0;"><font face="Arial" size="2" color="#111111"><a href="mailto:${email}" style="color:#111111;text-decoration:none;">${email}</a></font></td></tr>` : '';
-  const phoneRow = phone ? `<tr><td style="padding:0;"><font face="Arial" size="2" color="#111111">${phone}</font></td></tr>` : '';
+  const titleRow = title ? `<tr><td style="padding:0;"><font face="Tahoma" size="2" color="#111111">${title}</font></td></tr>` : '';
+  const emailRow = email ? `<tr><td style="padding:0;"><font face="Tahoma" size="2" color="#111111"><a href="mailto:${email}" style="color:#111111;text-decoration:none;">${email}</a></font></td></tr>` : '';
+  const phoneRow = phone ? `<tr><td style="padding:0;"><font face="Tahoma" size="2" color="#111111">${phone}</font></td></tr>` : '';
 
   return `<table cellpadding="0" cellspacing="0" border="0">
   <tr>
@@ -110,7 +110,7 @@ function buildSignatureHTML(name, title, email, phone, style) {
     </td>
     <td style="vertical-align:middle;">
       <table cellpadding="0" cellspacing="0" border="0">
-        <tr><td style="padding:0;"><font face="Arial" size="2" color="#111111"><b><span style="text-transform:uppercase;letter-spacing:0.04em;">${name}</span></b></font></td></tr>
+        <tr><td style="padding:0;"><font face="Tahoma" size="2" color="#111111"><b><span style="text-transform:uppercase;letter-spacing:0.04em;">${name}</span></b></font></td></tr>
         ${titleRow}${emailRow}${phoneRow}
       </table>
     </td>
